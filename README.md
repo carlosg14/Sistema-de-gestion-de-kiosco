@@ -15,7 +15,7 @@ El proyecto “Organización del Kiosco” tiene como objetivo desarrollar una a
 ## Descripción del problema
 Los negocios de kiosco suelen enfrentar varios desafíos relacionados con la gestión de inventarios, proveedores y ventas. Estos problemas incluyen:
 
- ** Desorden en la Gestión del Inventario: La falta de un sistema organizado puede llevar a errores en el stock, como vencimientos no detectados y desactualización de precios.
+ **Desorden en la Gestión del Inventario: La falta de un sistema organizado puede llevar a errores en el stock, como vencimientos no detectados y desactualización de precios.
 
  ** Dificultades en el Control de Proveedores: La gestión de múltiples proveedores y sus precios puede resultar complicada, llevando a inconsistencias en el costo y la disponibilidad de productos.
 
