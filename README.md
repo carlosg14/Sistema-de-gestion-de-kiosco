@@ -1,4 +1,4 @@
-"# Sistema-de-gestion-de-kiosco" 
+## "Sistema-de-gestion-de-kiosco" 
 
 ## Tabla de Participantes
 
