@@ -23,23 +23,23 @@ Desarrollar una aplicación que facilite la organización y gestión de un kiosc
 
 ## Datos requeridos
 
-##Stock:
+-Stock:
   *Producto
   *Fecha de vencimiento del producto
   *Cantidad de unidades
   *Precio de venta
-## Proveedores:
+-Proveedores:
   *Productos que vende
   *Precio de compra
   *Facturación:
   *Facturas
   *Cantidad de ventas
   *Tipo de ventas (Efectivo, débito, crédito)
-## Sucursal:
+-Sucursal:
   *Número de sucursal
   *Dirección
   *Encargado
-## Empleados:
+-Empleados:
   *Nombre
   *Apellido
   *Teléfono
