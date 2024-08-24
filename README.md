@@ -1,4 +1,4 @@
-## "Sistema-de-gestion-de-kiosco" 
+## "Sistema de gestion de kiosco" 
 
 ## Tabla de Participantes
 
@@ -15,13 +15,13 @@ El proyecto “Organización del Kiosco” tiene como objetivo desarrollar una a
 ## Descripción del problema
 Los negocios de kiosco suelen enfrentar varios desafíos relacionados con la gestión de inventarios, proveedores y ventas. Estos problemas incluyen:
 
-Desorden en la Gestión del Inventario: La falta de un sistema organizado puede llevar a errores en el stock, como vencimientos no detectados y desactualización de precios.
+ ** Desorden en la Gestión del Inventario: La falta de un sistema organizado puede llevar a errores en el stock, como vencimientos no detectados y desactualización de precios.
 
-Dificultades en el Control de Proveedores: La gestión de múltiples proveedores y sus precios puede resultar complicada, llevando a inconsistencias en el costo y la disponibilidad de productos.
+ ** Dificultades en el Control de Proveedores: La gestión de múltiples proveedores y sus precios puede resultar complicada, llevando a inconsistencias en el costo y la disponibilidad de productos.
 
-Problemas en la Facturación: La falta de un registro claro de las ventas y facturas puede dificultar el seguimiento de ingresos y tipos de pagos, afectando la contabilidad y la toma de decisiones.
+ ** Problemas en la Facturación: La falta de un registro claro de las ventas y facturas puede dificultar el seguimiento de ingresos y tipos de pagos, afectando la contabilidad y la toma de decisiones.
 
-Desorganización en la Información de Sucursales y Empleados: La falta de un sistema centralizado para gestionar la información de sucursales y empleados puede llevar a confusión y errores en la administración.
+ ** Desorganización en la Información de Sucursales y Empleados: La falta de un sistema centralizado para gestionar la información de sucursales y empleados puede llevar a confusión y errores en la administración.
 
 ## Objetivos del proyecto
 
