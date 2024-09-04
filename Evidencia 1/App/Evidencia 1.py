@@ -1,3 +1,5 @@
+import random
+from aritmetica import *
 
 
 def login(credenciales: dict):
@@ -53,28 +55,16 @@ def nuevo_usuario(credenciales: dict):
     correo = input('Ingrese su correo electronico: ')
     fecha_nac = input('Ingrese su fecha de nacimiento: ')
 
-    # Se verifica que el nombre de usuario cumpla las condiciones.
+    # Se verifica que el nombre de usuario sea valido.
     while True:
         print('=' * 20)
         nombre_usuario = input('Ingrese su nombre de usuario ( Entre 6 a 12 caracteres): ')
 
-        # Se verifica si la longitud del nombre es correcta
-        if len(nombre_usuario) > 12 or len(nombre_usuario) < 6:
-            print('\033[1;31m ')  # Colorea de rojo las letras de la consola
-            print(f'El nombre de usuario debe tener entre 6 a 12 caracteres')
-            print('\033[0;57m ')  # Vuelve al color blanco
-            continue
-
-        # Se verifica si el nombre de usuario es unico
-        if nombre_usuario in credenciales.keys():
-            print('\033[1;31m ')  # Colorea de rojo las letras de la consola
-            print(f'El nombre de usuario ya existe.')
-            print('\033[0;57m ')  # Vuelve al color blanco
-            continue
-        else:
+        valido = valid_user(nombre_usuario, credenciales)
+        if valido:
             break
 
-    # Se verifica que la contraseña cumpla las condiciones solicitadas.
+    # Se verifica que la contraseña sea valida.
     while True:
 
         print('\033[1;31m ')  # Colorea de rojo las letras de la consola
@@ -87,35 +77,21 @@ def nuevo_usuario(credenciales: dict):
 
         contraseña = input('Ingrese su contraseña ( Debe contener minimo 8 caracteres): ')
 
-        # Se verifica si la contraseña tiene la longitud correcta
-        if len(contraseña) < 8:
-            print('\033[1;31m ')  # Colorea de rojo las letras de la consola
-            print(f'La contraseña debe contener al menos 8 caracteres')
-            print('\033[0;57m ')  # Vuelve al color blanco
-            continue
+        valida = valid_passw(contraseña)
 
-        if contraseña.isupper() and contraseña.isalpha():
-            print('Contraseña invalida. Verifique si cumple los requisitos.')
-            print('=' * 20)
-            print('\n')
-            continue
-        elif contraseña.islower() and contraseña.isalpha():
-            print('Contraseña invalida. Verifique si cumple los requisitos.')
-            print('=' * 20)
-            print('\n')
-            continue
-        elif contraseña.isnumeric():
-            print('Contraseña invalida. Verifique si cumple los requisitos.')
-            print('=' * 20)
-            print('\n')
-            continue
-        elif not (any(car.isdigit() for car in contraseña)):
-            print('Contraseña invalida. Verifique si cumple los requisitos.')
-            print('=' * 20)
-            print('\n')
-            continue
-        else:
+        if valida:
             break
+
+    # Se verifica si es un humano.
+    while True:
+        humano = is_human()
+        if humano:
+            break
+        print('1- Continuar.')
+        print('2- Salir del registro.')
+        continuar = input('Ingrese su opcion: ')
+        if continuar == '2':
+            return
 
     credenciales[nombre_usuario] = {'nombre_real': nombre_real,
                                     'contraseña': contraseña,
@@ -129,6 +105,108 @@ def nuevo_usuario(credenciales: dict):
 
 def nueva_contra():
     pass
+
+
+def is_human():
+    """
+    Devuelve True si resuleve el CAPTCHA correctamente, False en caso contrario.
+
+    """
+    # Se generan los numeros aleatorios
+
+    a = random.randint(a=0, b=10)
+    b = random.randint(a=0, b=10)
+    operacion = random.randint(a=1, b=4)
+
+    if operacion == 1:
+        resultado = sumar(a, b)
+        print('Cual es el resultado de la siguiente operacion: '
+              f'{a} + {b} = ...')
+    elif operacion == 2:
+        resultado = restar(a, b)
+        print('Cual es el resultado de la siguiente operacion: '
+              f'{a} - {b} = ...')
+    elif operacion == 3:
+        resultado = multiplicar(a, b)
+        print('Cual es el resultado de la siguiente operacion: '
+              f'{a} * {b} = ...')
+    else:
+        resultado = dividir(a, b)
+        print('Cual es el resultado de la siguiente operacion: '
+              f'{a} / {b} = ...')
+    respuesta = float(input('Respuesta (Debe contener maximo dos numeros decimales): '))
+    if resultado == respuesta:
+        print('Resultado correcto.')
+        return True
+    print('Resultado incorrecto.')
+    return False
+
+
+def valid_passw(cadena: str):
+    """
+    Retorna True si cadena tiene 8 o mas caracteres y cumple 2 de las siguientes condiciones:
+      - Al menos un numero.
+      - Al menos una letra mayuscula.
+      - Al menos una letra minuscula.
+      - Al menos un caracter especial.
+    Retoran False en caso contrario.
+
+    Parametros
+     cadena [str]
+
+    """
+    if len(cadena) < 8:
+        print('\033[1;31m ')  # Colorea de rojo las letras de la consola
+        print(f'La contraseña debe contener al menos 8 caracteres')
+        print('\033[0;57m ')  # Vuelve al color blanco
+        return False
+    if cadena.isupper() and cadena.isalpha():
+        print('Contraseña invalida. Verifique si cumple los requisitos.')
+        print('=' * 20)
+        print('\n')
+        return False
+    elif cadena.islower() and cadena.isalpha():
+        print('Contraseña invalida. Verifique si cumple los requisitos.')
+        print('=' * 20)
+        print('\n')
+        return False
+    elif cadena.isnumeric():
+        print('Contraseña invalida. Verifique si cumple los requisitos.')
+        print('=' * 20)
+        print('\n')
+        return False
+    elif not (any(car.isdigit() for car in cadena)):
+        print('Contraseña invalida. Verifique si cumple los requisitos.')
+        print('=' * 20)
+        print('\n')
+        return False
+
+    return True
+
+
+def valid_user(nombre_usuario: str, credenciales: dict):
+    """
+    Devuelve True si esl nombre de usuario es unico y si su longitud esta entre 6 a 12 caracteres.
+
+    Parametros:
+     cadena [str]
+     credenciales [dict]
+
+    """
+    if len(nombre_usuario) > 12 or len(nombre_usuario) < 6:
+        print('\033[1;31m ')  # Colorea de rojo las letras de la consola
+        print(f'El nombre de usuario debe tener entre 6 a 12 caracteres')
+        print('\033[0;57m ')  # Vuelve al color blanco
+        return False
+
+    # Se verifica si el nombre de usuario es unico
+    if nombre_usuario in credenciales.keys():
+        print('\033[1;31m ')  # Colorea de rojo las letras de la consola
+        print(f'El nombre de usuario ya existe.')
+        print('\033[0;57m ')  # Vuelve al color blanco
+        return False
+
+    return True
 
 
 def menu():

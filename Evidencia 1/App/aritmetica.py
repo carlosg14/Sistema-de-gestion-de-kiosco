@@ -8,7 +8,8 @@ def dividir(a: float, b: float):
     try:
         return round(a / b, 2)
     except ZeroDivisionError:
-        print('No se puede dividir por cero..')
+        b += 1
+        return round(a / b, 2)
 
 def multiplicar(a: float, b: float):
     return round(a * b, 2)
