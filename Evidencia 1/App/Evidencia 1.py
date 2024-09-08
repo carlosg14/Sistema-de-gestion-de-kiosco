@@ -1,4 +1,7 @@
+import datetime
 import random
+import time
+
 from aritmetica import *
 
 
@@ -27,6 +30,7 @@ def login(credenciales: dict):
 
         try:
             if credenciales[nombre_usuario]['contraseña'] == contraseña:
+                registrar_ingreso(nombre_usuario)
                 print('\nSesion iniciada correctamente....')
                 break
             else:
@@ -100,7 +104,43 @@ def nuevo_usuario(credenciales: dict):
                                     'dni': dni,
                                     'fecha_nac': fecha_nac}
 
+    save_user(credenciales[nombre_usuario], nombre_usuario)
     return credenciales
+
+
+def save_user(datos, usuario):
+    """
+    Se guardan los datos del usuario en el archivo usuariosCreados.txt.
+
+    Parametros
+
+        datos [dict]: Datos del usuario.
+        usuario [str]: Nombre del usuario.
+
+    """
+
+    datos = [value + ',' for value in datos.values()]
+    try:
+        with open('usuariosCreados.txt', 'xt') as archivo:
+            archivo.write('Nombre de usuario, Nombre real, Contraseña, Apellido, Correo, Dni, Fecha_nac\n')
+            archivo.write(usuario + ',')
+            archivo.writelines(datos)
+            archivo.write('\n')
+    except FileExistsError:
+        with open('usuariosCreados.txt', 'at') as archivo:
+            archivo.write(usuario + ',')
+            archivo.writelines(datos)
+            archivo.write('\n')
+
+
+def registrar_ingreso(user):
+    try:
+        with open('ingresos.txt', 'xt') as archivo:
+            archivo.write(f'{datetime.datetime.now()} : Ingreso el usuario {user}.')
+
+    except FileExistsError:
+        with open('ingresos.txt', 'at') as archivo:
+            archivo.write(f'{datetime.datetime.now()} : Ingreso el usuario {user}.')
 
 
 def nueva_contra():
