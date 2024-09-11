@@ -29,13 +29,15 @@ foreign key (id_proveedores) references proveedores (id_proveedores)
 );
 
 create table detalle_venta (
-id_venta int auto_increment,
+id_venta int ,
+id_productos int,
 cantidad int not null,
 total float not null,
-id_productos int,
 
-primary key (id_venta), -- Clave primaria de tabla detalle de ventra
-foreign key (id_productos) references productos (id_productos) -- Clave secundaria de la tabla detalle de venta
+primary key (id_venta, id_productos), -- Clave primaria de tabla detalle de ventra
+foreign key (id_productos) references productos (id_productos), -- Clave secundaria de la tabla detalle de venta
+foreign key (id_venta) references ventas (id_ventas) -- Clave secundaria de la tabla detalle de venta
+
 );
 
 create table sucursal (
@@ -46,7 +48,8 @@ telefono varchar (10) not null,
 email varchar (45) not null,
 encargado varchar (45),
 
-primary key (id_sucursal)
+primary key (id_sucursal),
+foreign key (encargado) references empleados(empleados)
 );
 
 create table empleados (
@@ -59,16 +62,16 @@ cargo enum ('Gerente', 'Cajero', 'Repositor', 'Administracion') not null,
 salario decimal (10,2) not null,
 ingreso datetime not null,
 salida datetime, 
-id_sucursal int not null,
 
-primary key (id_empleados),
-foreign key (id_sucursal) references sucursal (id_sucursal)
+
+primary key (id_empleados)
 );
 
 create table empleados_por_sucursal (
 id_sucursal int,
 id_empleados int,
 
+primary key (id_sucursal, id_empleados),
 foreign key (id_sucursal) references sucursal (id_sucursal),
 foreign key (id_empleados) references empleados (id_empleados)
 );
@@ -80,6 +83,7 @@ modo_de_pago enum ('Efectivo', 'Tarjeta de debito','Tarjeta de credito', 'transf
 id_empleados int,
 id_sucursal int not null,
 
+primary key (id_ventas),
 foreign key (id_empleados) references empleados (id_empleados),
 foreign key (id_sucursal) references sucursal (id_sucursal)
 );
