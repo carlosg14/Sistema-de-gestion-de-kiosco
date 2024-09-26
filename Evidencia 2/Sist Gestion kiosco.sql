@@ -44,7 +44,7 @@ create table sucursal (
 id_sucursal int auto_increment,
 direccion varchar (45) not null,
 nombre varchar (45) not null,
-telefono varchar (10) not null,
+telefono varchar (30) not null,
 email varchar (45) not null,
 encargado varchar (45),
 
