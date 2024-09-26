@@ -49,7 +49,7 @@ email varchar (45) not null,
 encargado varchar (45),
 
 primary key (id_sucursal),
-foreign key (encargado) references empleados(empleados)
+foreign key (encargado) references empleados(id_empleados)
 );
 
 create table empleados (
