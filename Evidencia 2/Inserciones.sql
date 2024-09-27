@@ -19,6 +19,43 @@ VALUES ("Mia Morena", "Hernandez", 3555596, "+54 15 2497 6788", 3, 648844, "2020
 ("Lautaro Nicolas", "Lopez", 3808054, "+54 9 3773 7769", 2, 532468, "2023-08-06 12:00:08", "2023-08-06 20:00:08"),
 ("Juan Ignacio", "Garcia", 3079458, "+54 9 3764 7980", 3, 968543, "2020-09-19 00:15:14", "2020-09-19 08:15:14");
 
+INSERT INTO sucursal(direccion, nombre, telefono, email, encargado)
+VALUES("Blv. 6 N° 45", "Mitre", "+54 9 3814 8500", "Mitre@gmail.com", 4),
+("Diag. Santa Fe N° 110", "Belgrano", "+54 15 2154 6370", "Belgrano@gmail.com", 10),
+("Boulevard Santa Cruz N° 369", "J.J. Castelli", "+54 9 3389 8284", "J.J. Castelli@gmail.com", 5),
+("Av. Formosa N° 286", "San Martin", "+54 15 2161 4799", "San Martin@gmail.com", 10),
+("Diagonal Merlo N° 146", "J.M. de Rosas", "+54 9 3598 3130", "J.M. de Rosas@gmail.com", 4);
 
 
+INSERT INTO empleados_por_sucursal(id_sucursal, id_empleados)
+VALUES (4, 15),
+(5, 8),
+(5, 12),
+(2, 12),
+(4, 8),
+(5, 9),
+(4, 14),
+(2, 2),
+(4, 6),
+(5, 1);
 
+INSERT INTO proveedores(nombre_proveedor, apellido_proveedor, telefono_proveedor, email_proveedor, direccion)
+VALUES ("Romero-Leiva", "Romero-Leiva", "+54 15 2685 6526", "biancapereyra@martinez.net.ar", "Diag. Alvear N° 533"),
+("Flores, Carrizo and Rodriguez", "Flores, Carrizo and Rodriguez", "+54 9 3508 7049", "mpaez@rodriguez.org", "Av. Alem N° 6311"),
+("Mendoza-Perez", "Mendoza-Perez", "+54 9 3864 5514", "sotosalvador@peralta-blanco.ar", "Calle San Martin N° 495"),
+("Gomez-Rodriguez", "Gomez-Rodriguez", "+54 15 2410 7239", "esanchez@gutierrez.net", "Av. 4 N° 3115"),
+("Rodriguez, Ayala and Silva", "Rodriguez, Ayala and Silva", "+54 9 3627 7428", "guadalupegarcia@leiva-romero.com.ar", "Diagonal 167 B N° 6464"),
+("Gimenez-Vega", "Gimenez-Vega", "+54 9 3215 9770", "oquiroga@alvarez.com", "Camino Mitre N° 3452"),
+("Barrios Inc", "Barrios Inc", "+54 15 2230 8402", "leon17@chavez.net.ar", "Camino Santa Fe N° 719"),
+("Martinez, Ferreyra and Silva", "Martinez, Ferreyra and Silva", "+54 9 3202 4534", "constantino21@pereyra-figueroa.com", "Diagonal J.B. Alberdi N° 104"),
+("Ruiz Ltd", "Ruiz Ltd", "+54 15 2590 1901", "santino-gabrieltorres@peralta.ar", "Avenida Resistencia N° 1130"),
+("Garcia Ltd", "Garcia Ltd", "+54 15 2482 4987", "renata28@silva.ar", "Av. Buenos Aires N° 35");
+
+INSERT INTO productos(nombre_producto, tipo_producto, unidades, precio_venta, vencimiento, id_proveedores)
+VALUES ('Coca-Cola', 1, 1000, 2000, "2026-09-19 08:15:14" , 2),
+('Pritty', 1, 1000, 1000, "2026-01-01 09:13:14" , 3),
+('Galletas Trio', 2, 1000, 1500, "2025-09-19 08:15:14" , 4),
+('Malboro', 3, 1000, 300, "2027-11-19 08:15:14" , 8),
+('Caramelos masticables', 5, 2000, 50, "2026-09-19 08:15:14" , 5),
+('Lavandina', 4, 50, 1500, "2026-09-19 08:15:14" , 2),
+('Detergente', 4, 30, 1550, "2026-09-19 08:15:14" , 2);

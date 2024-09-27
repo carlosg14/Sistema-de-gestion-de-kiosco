@@ -49,7 +49,7 @@ email varchar (45) not null,
 encargado varchar (45),
 
 primary key (id_sucursal),
-foreign key (encargado) references empleados(id_empleados)
+foreign key (encargado) references empleados(empleados)
 );
 
 create table empleados (
@@ -57,7 +57,7 @@ id_empleados int auto_increment,
 nombre_empleado varchar (45) not null,
 apellido_empleado varchar (45) not null,
 DNI int not null,
-telefono varchar(10),
+telefono varchar(30),
 cargo enum ('Gerente', 'Cajero', 'Repositor', 'Administracion') not null,
 salario decimal (10,2) not null,
 ingreso datetime not null,
