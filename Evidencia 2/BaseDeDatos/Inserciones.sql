@@ -1,6 +1,7 @@
 
--- Inserciones de la tabla empleados.
 use sistema_de_gestion_kiosko;
+
+-- Inserciones de la tabla empleados.
 
 INSERT INTO empleados(nombre_empleado, apellido_empleado, DNI, telefono, cargo, salario, ingreso, salida)
 VALUES ("Mia Morena", "Hernandez", 3555596, "+54 15 2497 6788", 3, 648844, "2020-08-18 21:26:32", "2020-08-19 05:26:32"),
@@ -19,6 +20,8 @@ VALUES ("Mia Morena", "Hernandez", 3555596, "+54 15 2497 6788", 3, 648844, "2020
 ("Lautaro Nicolas", "Lopez", 3808054, "+54 9 3773 7769", 2, 532468, "2023-08-06 12:00:08", "2023-08-06 20:00:08"),
 ("Juan Ignacio", "Garcia", 3079458, "+54 9 3764 7980", 3, 968543, "2020-09-19 00:15:14", "2020-09-19 08:15:14");
 
+-- Inserciones de la tabla sucursal.
+
 INSERT INTO sucursal(direccion, nombre, telefono, email, encargado)
 VALUES("Blv. 6 N° 45", "Mitre", "+54 9 3814 8500", "Mitre@gmail.com", 4),
 ("Diag. Santa Fe N° 110", "Belgrano", "+54 15 2154 6370", "Belgrano@gmail.com", 10),
@@ -26,6 +29,7 @@ VALUES("Blv. 6 N° 45", "Mitre", "+54 9 3814 8500", "Mitre@gmail.com", 4),
 ("Av. Formosa N° 286", "San Martin", "+54 15 2161 4799", "San Martin@gmail.com", 10),
 ("Diagonal Merlo N° 146", "J.M. de Rosas", "+54 9 3598 3130", "J.M. de Rosas@gmail.com", 4);
 
+-- Inserciones de la tabla empleados_por_sucursal.
 
 INSERT INTO empleados_por_sucursal(id_sucursal, id_empleados)
 VALUES (4, 15),
@@ -39,6 +43,8 @@ VALUES (4, 15),
 (4, 6),
 (5, 1);
 
+-- Inserciones de la tabla proveedores.
+
 INSERT INTO proveedores(nombre_proveedor, apellido_proveedor, telefono_proveedor, email_proveedor, direccion)
 VALUES ("Romero-Leiva", "Romero-Leiva", "+54 15 2685 6526", "biancapereyra@martinez.net.ar", "Diag. Alvear N° 533"),
 ("Flores, Carrizo and Rodriguez", "Flores, Carrizo and Rodriguez", "+54 9 3508 7049", "mpaez@rodriguez.org", "Av. Alem N° 6311"),
@@ -51,6 +57,8 @@ VALUES ("Romero-Leiva", "Romero-Leiva", "+54 15 2685 6526", "biancapereyra@marti
 ("Ruiz Ltd", "Ruiz Ltd", "+54 15 2590 1901", "santino-gabrieltorres@peralta.ar", "Avenida Resistencia N° 1130"),
 ("Garcia Ltd", "Garcia Ltd", "+54 15 2482 4987", "renata28@silva.ar", "Av. Buenos Aires N° 35");
 
+-- Inserciones de la tabla productos.
+
 INSERT INTO productos(nombre_producto, tipo_producto, unidades, precio_venta, vencimiento, id_proveedores)
 VALUES ('Coca-Cola', 1, 1000, 2000, "2026-09-19 08:15:14" , 2),
 ('Pritty', 1, 1000, 1000, "2026-01-01 09:13:14" , 3),
@@ -59,3 +67,39 @@ VALUES ('Coca-Cola', 1, 1000, 2000, "2026-09-19 08:15:14" , 2),
 ('Caramelos masticables', 5, 2000, 50, "2026-09-19 08:15:14" , 5),
 ('Lavandina', 4, 50, 1500, "2026-09-19 08:15:14" , 2),
 ('Detergente', 4, 30, 1550, "2026-09-19 08:15:14" , 2);
+
+-- Inserciones de la tabla ventas.
+
+INSERT INTO ventas(fecha_venta, modo_de_pago, id_empleados, id_sucursal)
+VALUES ("2020-06-27 11:20:20", "4", "15", "4"),
+("2021-02-15 10:04:07", "3", "14", "4"),
+("2021-09-08 14:14:48", "2", "15", "4"),
+("2021-01-16 02:34:23", "3", "12", "5"),
+("2022-11-02 14:50:35", "4", "15", "4"),
+("2022-03-02 03:41:50", "4", "1", "5"),
+("2022-09-13 19:47:18", "3", "1", "5"),
+("2021-10-04 02:17:44", "2", "9", "5"),
+("2021-10-18 09:55:28", "4", "9", "5"),
+("2022-10-12 16:22:51", "3", "2", "2");
+
+
+-- Inserciones de la tabla detalle_venta.
+
+INSERT INTO detalle_venta(id_venta, id_productos, cantidad, total)
+VALUES ("7", "13", "9", "13500"),
+("1", "11", "9", "2700"),
+("4", "11", "9", "2700"),
+("8", "12", "1", "50"),
+("6", "9", "10", "10000"),
+("8", "10", "9", "13500"),
+("3", "12", "2", "100"),
+("6", "8", "7", "14000"),
+("4", "8", "4", "8000"),
+("6", "10", "7", "10500"),
+("3", "11", "7", "2100"),
+("7", "10", "6", "9000"),
+("10", "9", "4", "4000"),
+("9", "9", "3", "3000"),
+("9", "13", "4", "6000"),
+("8", "8", "6", "12000"),
+("1", "12", "7", "350");

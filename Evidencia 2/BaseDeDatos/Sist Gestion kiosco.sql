@@ -28,17 +28,6 @@ primary key (id_productos),
 foreign key (id_proveedores) references proveedores (id_proveedores)
 );
 
-create table detalle_venta (
-id_venta int ,
-id_productos int,
-cantidad int not null,
-total float not null,
-
-primary key (id_venta, id_productos), -- Clave primaria de tabla detalle de ventra
-foreign key (id_productos) references productos (id_productos), -- Clave secundaria de la tabla detalle de venta
-foreign key (id_venta) references ventas (id_ventas) -- Clave secundaria de la tabla detalle de venta
-
-);
 
 create table sucursal (
 id_sucursal int auto_increment,
@@ -77,7 +66,7 @@ foreign key (id_empleados) references empleados (id_empleados)
 );
 
 create table ventas (
-id_ventas int not null,
+id_ventas int not null auto_increment,
 fecha_venta datetime not null,
 modo_de_pago enum ('Efectivo', 'Tarjeta de debito','Tarjeta de credito', 'transferencia') not null,
 id_empleados int,
@@ -86,4 +75,16 @@ id_sucursal int not null,
 primary key (id_ventas),
 foreign key (id_empleados) references empleados (id_empleados),
 foreign key (id_sucursal) references sucursal (id_sucursal)
+);
+
+create table detalle_venta (
+id_venta int ,
+id_productos int,
+cantidad int not null,
+total float not null,
+
+primary key (id_venta, id_productos), -- Clave primaria de tabla detalle de ventra
+foreign key (id_productos) references productos (id_productos), -- Clave secundaria de la tabla detalle de venta
+foreign key (id_venta) references ventas (id_ventas) -- Clave secundaria de la tabla detalle de venta
+
 );
