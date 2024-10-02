@@ -46,10 +46,10 @@ direccion varchar (45) not null,
 nombre varchar (45) not null,
 telefono varchar (10) not null,
 email varchar (45) not null,
-encargado varchar (45),
+encargado int,
 
 primary key (id_sucursal),
-foreign key (encargado) references empleados(empleados)
+foreign key (encargado) references empleados(id_empleados)
 );
 
 create table empleados (
