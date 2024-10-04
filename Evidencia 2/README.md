@@ -1,4 +1,4 @@
-# Sistema de Gestión de Kiosco
+# Evidencia 2
 
 Este proyecto implementa un sistema básico de gestión de usuarios para un kiosco, utilizando Python. El sistema permite registrar, modificar, eliminar y buscar usuarios, así como registrar accesos al sistema.
 
