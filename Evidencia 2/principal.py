@@ -11,7 +11,7 @@ def main():
         print(f'5. Mostrar Usuarios.')
         print(f'6. Log in.')
         print(f'7. Salir.')
-        opcion = input('Ingrese una opcion: \n')
+        opcion = input('Ingrese una opcion: ')
         if opcion == '1':
             datos_usuario = Usuario.solicitar_datos()
             Usuario.RegistrarUsuario(datos_usuario)
@@ -32,9 +32,9 @@ def main():
         elif opcion == '5':
             Usuario.MostrarUsuarios()
         elif opcion == '6':
-            user = Usuario.LogearUsuario()
+            Usuario.LogearUsuario()
         elif opcion == '7':
-            print('Que tenga buen dia.....')
+            print('Que tenga buen dia.....\n')
             Acceso.MostrarAccesos()
             return
         else:

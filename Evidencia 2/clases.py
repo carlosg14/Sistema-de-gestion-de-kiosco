@@ -17,7 +17,7 @@ class Usuario:
 
 
     @classmethod
-    def solicitar_datos(cls):
+    def solicitar_datos(cls) -> tuple:
         """
         Solicita los datos necesarios para crear y registrar un nuevo usuario.
         Ademas verifica que esos datos ya no existan.
@@ -38,7 +38,7 @@ class Usuario:
         return nuevo_user
 
     @classmethod
-    def RegistrarUsuario(cls, user_data):
+    def RegistrarUsuario(cls, user_data: tuple):
         """
         Registra un objeto usuario en el archivo binario usuarios.ispc
 
@@ -46,7 +46,7 @@ class Usuario:
         # Se leen los usuarios del archivo.
         usuarios = leer_binario(cls.users_file)
 
-        # Se guardan los usuarios junto con el nuevo usuario
+        # Se agrega el nuevo usuario
         if usuarios is None:
             nuevo_usario = cls(user_data[0] + 1, user_data[1], user_data[2], user_data[3])
             usuarios = [nuevo_usario]
@@ -54,6 +54,7 @@ class Usuario:
             nuevo_usario = cls(usuarios[-1].id + 1, user_data[1], user_data[2], user_data[3])
             usuarios.append(nuevo_usario)
 
+        # Se guardan los usuarios
         escribir_binario(cls.users_file, usuarios)
 
         print('Usuario registrado con exito...')
@@ -74,17 +75,25 @@ class Usuario:
             print('El usuario no existe....')
             return
 
-        cls.EliminarUsuario(username)
-
-        new_user_data = cls.solicitar_datos()
-
         usuarios = leer_binario(cls.users_file)
+        correcta = False
+        # Se solicitan los nuevos datos.
+        while not correcta:
+            nw_username = input('Ingrese el nuevo nombre de usuario: ')
+            for user in usuarios:
+                if user.username == nw_username and user.username != username:
+                    print('Ese nombre de usuario ya existe. Elija otro por favor. ')
+                    break
+            else:
+                correcta = True
+        nw_password = input('Ingrese su nueva contraseña: ')
+        nw_email = input('Ingrese el nuevo email: ')
 
-        user_data.username = new_user_data[1]
-        user_data.password = new_user_data[2]
-        user_data.email = new_user_data[3]
-
-        usuarios.append(user_data)
+        for user in usuarios:
+            if user.username == username:
+                user.username = nw_username
+                user.password = nw_password
+                user.email = nw_email
 
         escribir_binario(cls.users_file, usuarios)
 
@@ -158,10 +167,7 @@ class Usuario:
             user_data = cls.BuscarUsuario(username)
             if user_data is None:
                 print('Usuario no encontrado....')
-                file = open('logs.txt', 'a')
-                log = f'|{datetime.datetime.now()}| usuario: {username} | clave: {password} \n'
-                file.write(log)
-                file.close()
+                registrar_log(username, password)
 
                 continue
 
@@ -180,10 +186,7 @@ class Usuario:
                 Acceso.RegistrarAcceso(username, fecha_ingreso)
                 return
             print('Contraseña incorrecta.....')
-            file = open('logs.txt', 'a')
-            log = f'|{datetime.datetime.now()}| usuario: {username} | clave: {password}\n'
-            file.write(log)
-            file.close()
+            registrar_log(username, password)
 
 
 
@@ -219,7 +222,7 @@ class Acceso:
         for acceso in accesos:
             print(acceso)
 
-def leer_binario(archivo) -> list | None:
+def leer_binario(archivo) -> list[Usuario] | None:
     """
     Lee el archivo binario que se pasa por parametro. Devuelve NONE si el archivo no existe.
 
@@ -241,4 +244,17 @@ def escribir_binario(archivo, objeto=None):
 
     file = open(archivo, 'wb')
     pickle.dump(objeto, file)
+    file.close()
+
+
+
+def registrar_log(username, password):
+    """
+    Escribe en un archivo de texto un log con el siguiente formato:
+    | Fecha actual | Nombre de usuario | Contraseña |
+
+    """
+    file = open('logs.txt', 'a')
+    log = f'|{datetime.datetime.now()}| usuario: {username} | clave: {password}\n'
+    file.write(log)
     file.close()
