@@ -88,3 +88,17 @@ foreign key (id_productos) references productos (id_productos), -- Clave secunda
 foreign key (id_venta) references ventas (id_ventas) -- Clave secundaria de la tabla detalle de venta
 
 );
+
+
+-- Trigger para actualizar el stock de un producto.
+
+delimiter //
+create trigger update_stock after insert on detalle_ventas
+for each row 
+BEGIN
+	UPDATE productos 
+    set unidades = unidades - NEW.cantidad
+    where id = NEW.id_productos;
+END //
+delimiter ;
+
