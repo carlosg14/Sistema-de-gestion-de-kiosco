@@ -93,7 +93,7 @@ foreign key (id_venta) references ventas (id_ventas) -- Clave secundaria de la t
 -- Trigger para actualizar el stock de un producto.
 
 delimiter //
-create trigger update_stock after insert on detalle_ventas
+create trigger update_stock after insert on detalle_venta
 for each row 
 BEGIN
 	UPDATE productos 
