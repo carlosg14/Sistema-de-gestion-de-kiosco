@@ -14,7 +14,7 @@ Este proyecto implementa un sistema básico de gestión de usuarios para un kios
 
 ## Requisitos
 
-- Python 3.x
+- Python 3.x 🐍
 
 No es necesario instalar ninguna biblioteca adicional, ya que el programa utiliza módulos de la biblioteca estándar de Python.
 
@@ -39,6 +39,10 @@ No es necesario instalar ninguna biblioteca adicional, ya que el programa utiliz
 - `usuarios.ispc`: Archivo binario que almacena los datos de los usuarios (se crea automáticamente).
 - `accesos.ispc`: Archivo binario que almacena los registros de acceso al sistema (se crea automáticamente).
 - `logs.txt`: Archivo de texto que registra los intentos de inicio de sesión (se crea automáticamente).
+  
+## Diagrama UML de clases.
+
+   ![Diagrama de clases.]()
 
 ## Posibles inconvenientes y soluciones
 
