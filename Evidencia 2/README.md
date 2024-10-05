@@ -42,7 +42,7 @@ No es necesario instalar ninguna biblioteca adicional, ya que el programa utiliz
   
 ## Diagrama UML de clases.
 
-   ![Diagrama de clases.]()
+   ![Diagrama de clases.](./Diagrama_clases.png)
 
 ## Posibles inconvenientes y soluciones
 
