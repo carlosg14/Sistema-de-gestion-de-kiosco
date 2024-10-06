@@ -28,3 +28,14 @@ order by count(*) desc;
 select monthname(fecha_venta) as MES, count(*) as Cantidad from ventas
 group by monthname(fecha_venta);
 
+-- CRUD
+
+SELECT nombre_producto FROM productos;
+
+INSERT INTO productos(nombre_producto, tipo_producto, unidades, precio_venta, vencimiento, id_proveedores)
+VALUES ('BonOBon', 1, 1000, 500, "2026-09-19 10:15:14" , 2);
+
+UPDATE productos SET precio_venta = 750 where nombre_producto = 'BonOBon';
+
+DELETE FROM productos WHERE nombre_producto = 'BonOBon';
+
