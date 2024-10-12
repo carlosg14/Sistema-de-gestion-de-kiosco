@@ -29,18 +29,6 @@ foreign key (id_proveedores) references proveedores (id_proveedores)
 );
 
 
-create table sucursal (
-id_sucursal int auto_increment,
-direccion varchar (45) not null,
-nombre varchar (45) not null,
-telefono varchar (30) not null,
-email varchar (45) not null,
-encargado varchar (45),
-
-primary key (id_sucursal),
-foreign key (encargado) references empleados(empleados)
-);
-
 create table empleados (
 id_empleados int auto_increment,
 nombre_empleado varchar (45) not null,
@@ -50,10 +38,23 @@ telefono varchar(30),
 cargo enum ('Gerente', 'Cajero', 'Repositor', 'Administracion') not null,
 salario decimal (10,2) not null,
 ingreso datetime not null,
-salida datetime, 
+salida datetime,
+contraseña varchar(45), 
 
 
 primary key (id_empleados)
+);
+
+create table sucursal (
+id_sucursal int auto_increment,
+direccion varchar (45) not null,
+nombre varchar (45) not null,
+telefono varchar (30) not null,
+email varchar (45) not null,
+encargado int,
+
+primary key (id_sucursal),
+foreign key (encargado) references empleados(id_empleados)
 );
 
 create table empleados_por_sucursal (
@@ -98,7 +99,7 @@ for each row
 BEGIN
 	UPDATE productos 
     set unidades = unidades - NEW.cantidad
-    where id = NEW.id_productos;
+    where id_productos = NEW.id_productos;
 END //
 delimiter ;
 
