@@ -1,5 +1,5 @@
-import random
 import pandas as pd
+import numpy as np
 import calendar
 import os
 import matplotlib.pyplot as plt
@@ -30,51 +30,27 @@ def days_in_month(year, month):
     Returns:
     int: El número de días en el mes.
     """
-    if month == 2:
-        return 29 if is_leap_year(year) else 28
-    elif month in [4, 6, 9, 11]:
-        return 30
-    else:
-        return 31
+    return calendar.monthrange(year, month)[1]
 
 # Sección 2: Generación y manipulación de datos
 # Esta sección contiene funciones para generar, cargar y manipular los datos de lluvia
 
 def generate_rainfall_data(year):
     """
-    Genera datos de lluvia aleatorios para un año completo.
+    Genera datos de lluvia aleatorios para un año completo utilizando un DataFrame de Pandas.
     
     Args:
     year (int): El año para el que se generan los datos.
     
     Returns:
-    list: Una lista de listas con los datos de lluvia para cada mes.
+    pandas.DataFrame: DataFrame con los datos de lluvia organizados por mes y día.
     """
-    rainfall_data = []
-    for month in range(1, 13):
-        days = days_in_month(year, month)
-        month_data = [round(random.uniform(0, 50), 1) for _ in range(days)]
-        rainfall_data.append(month_data)
-    return rainfall_data
-
-def create_dataframe(rainfall_data, year):
-    """
-    Crea un DataFrame de pandas a partir de los datos de lluvia generados.
+    months = calendar.month_abbr[1:]
+    data = {month: np.random.uniform(0, 50, days_in_month(year, i+1)).round(1) 
+            for i, month in enumerate(months)}
     
-    Args:
-    rainfall_data (list): Lista de listas con los datos de lluvia.
-    year (int): El año de los datos.
-    
-    Returns:
-    pandas.DataFrame: DataFrame con los datos de lluvia organizados.
-    """
-    max_days = max(len(month) for month in rainfall_data)
-    df = pd.DataFrame(index=range(1, max_days + 1))
-    
-    for month, data in enumerate(rainfall_data, 1):
-        month_name = calendar.month_abbr[month]
-        df[month_name] = pd.Series(data, index=range(1, len(data) + 1))
-    
+    df = pd.DataFrame(data)
+    df.index = range(1, 32)  # Establecer índice de 1 a 31
     df.index.name = 'Day'
     return df
 
@@ -94,8 +70,7 @@ def load_or_generate_data(year):
         df = pd.read_csv(filename, index_col='Day')
     else:
         print(f"Generando nuevos datos de lluvia para {year}")
-        rainfall_data = generate_rainfall_data(year)
-        df = create_dataframe(rainfall_data, year)
+        df = generate_rainfall_data(year)
         df.to_csv(filename)
         print(f"Datos guardados en {filename}")
     return df
@@ -170,7 +145,8 @@ def plot_rainfall_heatmap(df, year):
     """
     plt.figure(figsize=(12, 8))
     for month in range(1, 13):
-        month_data = df[calendar.month_abbr[month]]
+        month_abbr = calendar.month_abbr[month]
+        month_data = df[month_abbr]
         days = days_in_month(year, month)
         plt.scatter([month] * days, range(1, days + 1), c=month_data[:days], cmap='Blues', s=50)
     
