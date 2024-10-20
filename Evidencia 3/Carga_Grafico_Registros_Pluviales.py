@@ -48,7 +48,12 @@ def generate_rainfall_data(year):
     months = calendar.month_abbr[1:]
     data = {month: np.random.uniform(0, 50, days_in_month(year, i+1)).round(1) 
             for i, month in enumerate(months)}
-    
+
+    for mes, datos in data.items():
+        while datos.size != 31:
+            data[mes] = np.append(datos, [np.nan])
+            datos = np.append(datos, [np.nan])
+
     df = pd.DataFrame(data)
     df.index = range(1, 32)  # Establecer índice de 1 a 31
     df.index.name = 'Day'
@@ -132,6 +137,7 @@ def plot_annual_rainfall(df, year):
     plt.xlabel('Mes')
     plt.ylabel('Lluvia Total (mm)')
     plt.savefig(f'lluvia_anual_{year}.png')
+    plt.show()
     plt.close()
     print(f"Gráfico de barras guardado como 'lluvia_anual_{year}.png'")
 
@@ -157,6 +163,7 @@ def plot_rainfall_heatmap(df, year):
     plt.yticks(range(1, 32, 5))
     plt.xticks(range(1, 13), calendar.month_abbr[1:])
     plt.savefig(f'distribucion_lluvia_{year}.png')
+    plt.show()
     plt.close()
     print(f"Gráfico de dispersión guardado como 'distribucion_lluvia_{year}.png'")
 
@@ -174,13 +181,14 @@ def plot_monthly_rainfall_pie(df, year):
     plt.title(f'Distribución Mensual de Lluvia en Córdoba, Argentina - {year}')
     plt.axis('equal')
     plt.savefig(f'distribucion_mensual_{year}.png')
+    plt.show()
     plt.close()
     print(f"Gráfico circular guardado como 'distribucion_mensual_{year}.png'")
 
 # Sección 5: Función principal y manejo de la interfaz de usuario
 # Esta sección contiene la función principal que maneja la interacción con el usuario
 
-def main():
+def registros_pluviales():
     """
     Función principal que maneja la interacción con el usuario y coordina las operaciones del programa.
     """
@@ -207,14 +215,17 @@ def main():
             month = int(input("Ingrese un número de mes (1-12): "))
             if 1 <= month <= 12:
                 display_monthly_data(df, month, year)
+                seguir = input('Presione enter para continuar')
             else:
                 print("Mes inválido. Por favor ingrese un número entre 1 y 12.")
         elif choice == '2':
             display_annual_summary(df, year)
+            seguir = input('Presione enter para continuar')
         elif choice == '3':
             filename = f"registroPluvial{year}_exportado.csv"
             df.to_csv(filename)
             print(f"Datos exportados a {filename}")
+            seguir = input('\nPresione enter para continuar')
         elif choice == '4':
             plot_annual_rainfall(df, year)
         elif choice == '5':
@@ -227,5 +238,4 @@ def main():
             print("Opción inválida. Por favor intente de nuevo.")
 
 # Sección 6: Punto de entrada del programa
-if __name__ == "__main__":
-    main()
+
