@@ -1,5 +1,5 @@
 from gestion_de_archivos import *
-
+import datetime
 from clase_acceso import *
 from algoritmos_ordenamiento import *
 
@@ -85,6 +85,9 @@ class Usuario:
 
         # Se guardan los usuarios
         escribir_binario(self.users_file, usuarios)
+        if not (leer_binario('usuariosOrdenadosPorUsername.ispc') is None):
+            escribir_binario('usuariosOrdenadosPorUsername.ispc', usuarios.sort(key=lambda x: x.username))
+
         print('Usuario registrado con exito...')
 
     @classmethod
@@ -109,11 +112,13 @@ class Usuario:
                 user.email = input('Ingrese el nuevo email: ')
                 user.DNI = input('Ingrese su nuevo DNI: ')
                 break
-
-        if cls.BuscarUsuario(user.username) and cls.BuscarUsuario(user.username) != username:
+        existe = cls.BuscarUsuario(user.username)
+        if existe and existe.username != username:
             raise Exception('El nuevo nombre de usuario ya exite..')
 
         escribir_binario(cls.users_file, usuarios)
+        if not (leer_binario('usuariosOrdenadosPorUsername.ispc') is None):
+            escribir_binario('usuariosOrdenadosPorUsername.ispc', usuarios.sort(key=lambda x: x.username))
 
         print('Usuario modificado con exito...')
 
@@ -154,6 +159,7 @@ class Usuario:
             if usuarios is None:
                 print('No hay usuarios registrados')
                 continuar = input('\nPresione enter para continuar....')
+                print('\n' * 20)
                 return
 
             contador = 1
@@ -164,23 +170,30 @@ class Usuario:
                     print(user)
                     print('\nRealizado por busqueda secuencial.')
                     continuar = input('\nPresione enter para continuar....')
+                    print('\n' * 20)
                     return user
                 print(f'Intento {contador}: {username} es distinto de {user.username}')
                 contador += 1
             print(f'No se pudo encontrar el usuario despues de {contador - 1} intentos.')
+            print('\nRealizado por busqueda secuencial.')
             continuar = input('\nPresione enter para continuar....')
+            print('\n' * 20)
             return
         user = busqueda_binaria(usuarios, username, lambda x: x.username, 'Username', 'usuariosOrdenadosPorUsername.ispc')
 
         if user is None:
             print('\nEl usuario no existe.')
+            print('\nRealizado por busqueda binaria.')
             continuar = input('\nPresione enter para continuar....')
+            print('\n' * 20)
             return
 
         print()
         print(user)
         print('\nRealizado por busqueda binaria.')
         continuar = input('\nPresione enter para continuar....')
+        print('\n' * 20)
+        return user
 
     @classmethod
     def buscar_x_dni(cls, dni):
@@ -260,7 +273,8 @@ class Usuario:
                 continue
 
             if password == user_data.password:
-                fecha_ingreso = datetime.datetime.now()
+                print('\n' * 20)
+                fecha_ingreso = datetime.now()
                 print("""
 
                         ██████  ██ ███████ ███    ██ ██    ██ ███████ ███    ██ ██ ██████   ██████  
@@ -270,7 +284,6 @@ class Usuario:
                         ██████  ██ ███████ ██   ████   ████   ███████ ██   ████ ██ ██████   ██████    
 
                             """)
-                volver = input('Presione enter para volver al menu principal.....')
                 Acceso.RegistrarAcceso(username, fecha_ingreso)
                 return
             print('Contraseña incorrecta.....')

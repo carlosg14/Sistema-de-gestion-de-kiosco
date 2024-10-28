@@ -1,6 +1,10 @@
 from clase_usuario import *
 from clase_acceso import *
 from gestion_de_archivos import *
+from Consultas import *
+from mysql.connector import errors
+
+
 def crud_users():
     """
     Se muestra el menú para realizar un CRUD al usario y
@@ -36,6 +40,7 @@ def crud_users():
                     print(err)
             limpiar_consola()
             print('Usuario registrado con exito.')
+
         elif opcion == '2':
             while True:
 
@@ -99,10 +104,11 @@ def acces_data():
         opcion = input('Ingrese una opcion: ')
 
         if opcion == '1':
+            limpiar_consola()
             accesos = Acceso.MostrarAccesos()
 
             for i in accesos:
-                print(accesos)
+                print(i)
             continuar = input('\nPresione enter para continuar...')
             limpiar_consola()
 
@@ -137,7 +143,6 @@ def ordenamiento_y_busqueda():
         if opcion == '1':
             limpiar_consola()
             Usuario.ordenar()
-            limpiar_consola()
 
         elif opcion == '2':
 
@@ -228,12 +233,20 @@ def menu_principal():
             limpiar_consola()
 
         elif opcion == '2':
-            pass
+            limpiar_consola()
+            Usuario.LogearUsuario()
+            try:
+                consultas()
+            except Exception as err:
+                print(err)
+            limpiar_consola()
+
         elif opcion == '3':
             pass
         elif opcion == '4':
             print('Vuelva pronto......')
             return
+
         else:
             limpiar_consola()
             print('Opcion incorrecta')
