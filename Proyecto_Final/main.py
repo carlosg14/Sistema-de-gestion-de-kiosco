@@ -3,6 +3,7 @@ from clase_acceso import *
 from gestion_de_archivos import *
 from Consultas import *
 from mysql.connector import errors
+from Carga_Grafico_Registros_Pluviales import registros_pluviales
 
 
 def crud_users():
@@ -154,7 +155,7 @@ def ordenamiento_y_busqueda():
                 print('El DNI debe ser un numero.')
                 continue
 
-            Usuario.buscar_x_dni(dni)
+            Usuario.buscar_x_dni(int(dni))
             limpiar_consola()
 
         elif opcion == '3':
@@ -171,7 +172,7 @@ def ordenamiento_y_busqueda():
             Usuario.buscar_x_email(email)
             limpiar_consola()
         elif opcion == '5':
-            print()
+            print('\n' * 20)
             Usuario.MostrarUsuarios()
             limpiar_consola()
         elif opcion == '6':
@@ -242,7 +243,9 @@ def menu_principal():
             limpiar_consola()
 
         elif opcion == '3':
-            pass
+            limpiar_consola()
+            registros_pluviales()
+
         elif opcion == '4':
             print('Vuelva pronto......')
             return

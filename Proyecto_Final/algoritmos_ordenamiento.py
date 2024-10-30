@@ -1,3 +1,4 @@
+import os.path
 
 from gestion_de_archivos import *
 from  datetime import  datetime
@@ -21,6 +22,9 @@ def insertionSort(lista: list[object]):
 
 def busqueda_binaria(lista: list[object], buscado, criterio, tipo, archivo):
 
+
+    if not os.path.exists('./búsquedasYordenamientos'):
+        os.mkdir('./búsquedasYordenamientos')
     ahora = str(datetime.now()).replace(':', '-')
     inicio = 0
     final = len(lista) - 1

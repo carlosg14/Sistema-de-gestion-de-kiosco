@@ -1,3 +1,5 @@
+import os.path
+
 from gestion_de_archivos import *
 import datetime
 from clase_acceso import *
@@ -85,8 +87,9 @@ class Usuario:
 
         # Se guardan los usuarios
         escribir_binario(self.users_file, usuarios)
-        if not (leer_binario('usuariosOrdenadosPorUsername.ispc') is None):
-            escribir_binario('usuariosOrdenadosPorUsername.ispc', usuarios.sort(key=lambda x: x.username))
+        usuarios.sort(key=lambda x: x.username)
+        if os.path.exists('usuariosOrdenadosPorUsername.ispc'):
+            escribir_binario('usuariosOrdenadosPorUsername.ispc', usuarios)
 
         print('Usuario registrado con exito...')
 
@@ -117,9 +120,9 @@ class Usuario:
             raise Exception('El nuevo nombre de usuario ya exite..')
 
         escribir_binario(cls.users_file, usuarios)
-        if not (leer_binario('usuariosOrdenadosPorUsername.ispc') is None):
-            escribir_binario('usuariosOrdenadosPorUsername.ispc', usuarios.sort(key=lambda x: x.username))
-
+        usuarios.sort(key=lambda x: x.username)
+        if os.path.exists('usuariosOrdenadosPorUsername.ispc'):
+            escribir_binario('usuariosOrdenadosPorUsername.ispc', usuarios)
         print('Usuario modificado con exito...')
 
     @classmethod
@@ -137,6 +140,9 @@ class Usuario:
             if user.username == username or user.email == email:
                 usuarios.remove(user)
                 escribir_binario(cls.users_file, usuarios)
+                usuarios.sort(key=lambda x: x.username)
+                if os.path.exists('usuariosOrdenadosPorUsername.ispc'):
+                    escribir_binario('usuariosOrdenadosPorUsername.ispc', usuarios)
                 print('Usuario eliminado con exito....')
                 return
 
@@ -203,7 +209,7 @@ class Usuario:
         if not usuarios:
             return None
 
-        user = busqueda_binaria(usuarios, dni, lambda x: str(x.DNI), 'DNI', cls.users_file)
+        user = busqueda_binaria(usuarios, dni, lambda x: x.DNI, 'DNI', cls.users_file)
 
         if user is None:
             print('\nEl usuario no existe.')
@@ -246,15 +252,38 @@ class Usuario:
         Muestra todos los usuarios registrados.
 
         """
-        usuarios = leer_binario(cls.users_file)
+        while True:
+            print('1. Archivo Usuarios.ispc.')
+            print('2. Archivo usuariosOrdenadosPorUsername.ispc.')
+            print('0. Salir.')
 
-        try:
-            for user in usuarios:
-                print(user)
-            volver = input('\nPresione enter para volver al menu principal.....')
+            opcion = input('Ingrese una opcion: ')
 
-        except TypeError:
-            print('No hay usuarios registrados ...')
+            if os.path.exists('usuariosOrdenadosPorUsername.ispc') and opcion == '2':
+                usuarios = leer_binario('usuariosOrdenadosPorUsername.ispc')
+            elif opcion == '1':
+                usuarios = leer_binario(cls.users_file)
+            elif opcion == '0':
+                print('\n' * 20)
+                return
+            elif opcion == '2':
+                print('\n' * 20)
+                print('El archivo usuariosOrdenadosPorUsername.ispc no existe...')
+                continue
+            else:
+                print('\n' * 20)
+                print('Opcion incorrecta...')
+
+            try:
+                print('\n' * 20)
+                for user in usuarios:
+                    print(user)
+                volver = input('\nPresione enter para volver al menu principal.....')
+                print('\n' * 20)
+
+            except TypeError:
+                print('\n' * 20)
+                print('No hay usuarios registrados ...')
 
     @classmethod
     def LogearUsuario(cls):
