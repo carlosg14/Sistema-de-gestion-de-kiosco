@@ -1,10 +1,18 @@
-from clase_usuario import *
-from clase_acceso import *
-from gestion_de_archivos import *
-from Consultas import *
-from mysql.connector import errors
-from Carga_Grafico_Registros_Pluviales import registros_pluviales
+try:
 
+    from clase_usuario import *
+    from clase_acceso import *
+    from gestion_de_archivos import *
+    from Consultas import *
+    from Carga_Grafico_Registros_Pluviales import registros_pluviales
+
+except ModuleNotFoundError as err:
+    from clase_usuario import *
+    from clase_acceso import *
+    from gestion_de_archivos import *
+    from Carga_Grafico_Registros_Pluviales import registros_pluviales
+
+    print('No posee el modulo MySQL')
 
 def crud_users():
     """
@@ -238,8 +246,9 @@ def menu_principal():
             Usuario.LogearUsuario()
             try:
                 consultas()
-            except Exception as err:
-                print(err)
+            except NameError as err:
+                print('No posee instalado el conector a MySql. Instalelo para poder acceder a esta funcionalidad.')
+                seguir = input('\nPresione enter para continuar...')
             limpiar_consola()
 
         elif opcion == '3':
