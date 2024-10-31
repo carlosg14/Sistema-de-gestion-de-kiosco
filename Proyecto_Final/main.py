@@ -116,6 +116,9 @@ def acces_data():
             limpiar_consola()
             accesos = Acceso.MostrarAccesos()
 
+            if accesos is None:
+                print("Error: 'accesos' es None")
+                return
             for i in accesos:
                 print(i)
             continuar = input('\nPresione enter para continuar...')
