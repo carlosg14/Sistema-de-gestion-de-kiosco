@@ -25,4 +25,4 @@ En este proyecto se implementa un programa que ofrece un amplio rango de funcion
 *  **Conexion_BD.py**: Este módulo se encarga de abrir una conexion con la bd y realizar la consulta que se le pase por parametros.Luego de esto se cierra la conexion con la                        BD.
 ## Mapa de aplicacion
 
-![](./Python.png)
+![](./Python.jpg)
